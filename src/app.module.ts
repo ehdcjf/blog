@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import databaseConfig from './config/databaseConfig';
 import { validationSchema } from './config/validationSchema';
 import { HistoryModule } from './history/history.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
 	imports: [
@@ -18,7 +19,8 @@ import { HistoryModule } from './history/history.module';
 			validationSchema,
 		      }),
 		MongooseModule.forRoot(process.env.DATABASE_HOST),
-		HistoryModule		
+		HistoryModule,
+		TagsModule		
 	],
 	controllers: [AppController],
 	providers: [AppService],

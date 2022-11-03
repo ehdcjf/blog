@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { User } from './user.schemas';
+import { User } from './user.schema';
 export type TagDocument = Tag & mongoose.Document;
 
 @Schema({ timestamps: true })

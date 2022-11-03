@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { VerifyEmailDto } from './dto/verify.email.dto';
 import { UserLoginDto } from './dto/login-user.dto';
-import { User } from '../schemas/user.schemas';
+import { User } from '../schemas/user.schema';
 // import { UserInfo } from './UserInfo';
 @Controller('users')
 export class UsersController {

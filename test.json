@@ -1,0 +1,22 @@
+{
+        "users": [
+                {
+                        "_id": "636371bbfe033f39fb34bcbf",
+                        "name": "Beatrix Kiddo",
+                        "id": "Black Mamba",
+                        "password": "1234",
+                        "createdAt": "2022-11-03T07:45:57.919Z",
+                        "updatedAt": "2022-11-03T07:45:57.919Z",
+                        "__v": 0
+                },
+                {
+                        "_id": "636375c44a58cb0e4e4ffa18",
+                        "name": "Elle Driver",
+                        "id": "California Mountain Snake",
+                        "password": "1234",
+                        "createdAt": "2022-11-03T08:01:25.573Z",
+                        "updatedAt": "2022-11-03T08:01:25.573Z",
+                        "__v": 0
+                }
+        ]
+}

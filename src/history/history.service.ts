@@ -1,35 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHistoryDto } from './dto/create-history.dto';
 import { UpdateHistoryDto } from './dto/update-history.dto';
-import {Model} from 'mongoose';
+import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { History, HistoryDocument} from '../schemas/history.schema';
+import { History, HistoryDocument } from '../schemas/history.schema';
 
 
 @Injectable()
 export class HistoryService {
-  constructor(@InjectModel(History.name) private historyModel: Model<HistoryDocument>){}
+	constructor(@InjectModel(History.name) private historyModel: Model<HistoryDocument>) { }
 
-  async create(history: History): Promise<History> {
-    const newHistory = new this.historyModel(history);
-    return newHistory.save();
-  }
+	async create(history: History): Promise<History> {
+		const newHistory = new this.historyModel(history);
+		return newHistory.save();
+	}
 
-  async findAllbyOwnerId(id: string): Promise<History[]>{
-    const history = await this.historyModel.find({owner:id}).populate('owner','id').exec();
-    console.log(history);
-    return history;
-  }
+	async findAllbyOwnerId(ownerId: string): Promise<History[]> {
+		const history = await this.historyModel.find({ owner: ownerId }).populate('owner', 'id').exec();
+		return history;
+	}
 
-  findOne(id: number) {
-    return `This action returns a #${id} history`;
-  }
+	async findOne(id: string): Promise<History> {
+		return await this.historyModel.findById(id).exec();
+	}
 
-  update(id: number, updateHistoryDto: UpdateHistoryDto) {
-    return `This action updates a #${id} history`;
-  }
+	async update(id: string, History: History): Promise<History> {
+		return await this.historyModel.findByIdAndUpdate(id, History, { new: true });
+	}
 
-  remove(id: number) {
-    return `This action removes a #${id} history`;
-  }
+	async delete(id: string) {
+		return await this.historyModel.findByIdAndDelete(id);
+	}
 }

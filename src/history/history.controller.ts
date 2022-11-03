@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete,Res, HttpStatus } from '@nestjs/common';
 import { HistoryService } from './history.service';
-import { CreateHistoryDto } from './dto/create-history.dto';
-import { UpdateHistoryDto } from './dto/update-history.dto';
 import {History} from '../schemas/history.schema';
 
 @Controller('history')
@@ -25,18 +23,27 @@ export class HistoryController {
 		})
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.historyService.findOne(+id);
+	@Get('/:id')
+	async findOne(@Res() response, @Param('id') historyId:string) {
+		const history = await this.historyService.findOne(historyId);
+		return response.status(HttpStatus.OK).json({
+			history
+		})
 	}
 
-	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateHistoryDto: UpdateHistoryDto) {
-		return this.historyService.update(+id, updateHistoryDto);
+	@Patch('/:id')
+	async update(@Res() response, @Param('id') id: string, @Body() history: History) {
+		const updatedHistory =  await this.historyService.update(id, history)
+		return response.status(HttpStatus.OK).json({
+			updatedHistory
+		})
 	}
-
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.historyService.remove(+id);
+	
+	@Delete('/:id')
+	async delete(@Res() response, @Param('id') id: string) {
+		const deletedHistory = await this.historyService.delete(id);
+		return response.status(HttpStatus.OK).json({
+			deletedHistory,
+		})
 	}
 }

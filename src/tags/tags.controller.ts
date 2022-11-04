@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query,Res, HttpStatus } from '@nestjs/common';
-import {Tag} from '../schemas/history.schema';
+import {Tag} from '../schemas/tag.schema';
 import { TagsService } from './tags.service';
 
 @Controller('tags')
@@ -7,45 +7,45 @@ export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
 
   @Post('/new')
-	async createUser(@Res() response, @Body() tag: Tag): Promise<Tag> {
-		const newUser = await this.tagsService.create(tag);
+	async createTag(@Res() response, @Body() tag: Tag) {
+		const newTag = await this.tagsService.create(tag);
 		return response.status(HttpStatus.CREATED).json({
-			newUser
+			newTag
 		})
 	}
 
-	@Get()
-	async fetchAllUsers(@Res() response){
-		const users = await this.tagsService.findAll();
+	@Get("/:ownerId")
+	async fetchAllTags(@Res() response, @Param('ownerId') ownerId:string){
+		const tags = await this.tagsService.findAllbyOwnerId(ownerId);
 		return response.status(HttpStatus.OK).json({
-			users
+			tags
 		})
 	}
 
-	@Get('/:id')
-	async getUserInfo(@Res() response, @Param('id') userId:string) {
-		const user = await this.tagsService.findOne(userId);
-		return response.status(HttpStatus.OK).json({
-			user
-		})
-	}
+	// @Get('/:id')
+	// async getTagInfo(@Res() response, @Param('id') tagId:string) {
+	// 	const tag = await this.tagsService.findOne(tagId);
+	// 	return response.status(HttpStatus.OK).json({
+	// 		tag
+	// 	})
+	// }
 
 	@Patch('/:id')
-	async update(@Res() response, @Param('id') id: string, @Body() user: User) {
-	    const updatedUser = await this.tagsService.update(id, user);
+	async update(@Res() response, @Param('id') id: string, @Body() tag: Tag) {
+	    const updatedTag = await this.tagsService.update(id, tag);
 	    return response.status(HttpStatus.OK).json({
-		updatedUser
+		updatedTag
 	    })
 	}
 
 
 	@Delete('/:id')
     	async delete(@Res() response, @Param('id') id:string) {
-        	const deletedUserId = await this.tagsService.delete(id);
+        	const deletedTagId = await this.tagsService.delete(id);
 
-		if(deletedUserId){	
+		if(deletedTagId){	
 			return response.status(HttpStatus.OK).json({
-				message: deletedUserId
+				message: deletedTagId
 			})
 		}
   }

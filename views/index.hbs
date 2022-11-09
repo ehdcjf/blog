@@ -18,6 +18,9 @@
   </body>
   <script>
   const my_name = document.querySelector("#my_name")
-   TweenLite.to(my_name, 2, {rotation:90, transformOrigin:"left 50%"});
+
+    setTimeout(()=>{
+      TweenLite.to(my_name, 2, {rotation:90, transformOrigin:"left 50%"});
+    },3000)
   </script>
 </html>

@@ -10,17 +10,25 @@
     <link rel="stylesheet" href="/css/index.css">
   </head>
   <body>
-  <div id='container'>
-    <div id="my_name">
+  <div id='loader'>
+    <div id="loading_message">
       {{ message }}
     </div>
   </div>
+
+    <div>
+      {{message}}
+    </div>
   </body>
   <script>
-  const my_name = document.querySelector("#my_name")
-
+  const loading_message = document.querySelector("#loading_message")
+  const rotate_time = 2;
     setTimeout(()=>{
-      TweenLite.to(my_name, 2, {rotation:90, transformOrigin:"left 50%"});
-    },3000)
+      TweenLite.to(loading_message, rotate_time, {rotation:90, transformOrigin:"left 50%"});
+      
+      setTimeout(()=>{
+        TweenLite.to(loading_message , 0.3,{opacity:0, display:"none"});
+      },3500)
+    },1500)
   </script>
 </html>

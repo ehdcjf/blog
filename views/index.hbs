@@ -4,10 +4,20 @@
     <meta charset="utf-8" />
     <title>LHOIKTN</title>
     <script src="/js/index.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
   </head>
   <body>
-    {{ message }}
+  <div id='container'>
+    <div id="my_name">
+      {{ message }}
+    </div>
+  </div>
   </body>
   <script>
+  const my_name = document.querySelector("#my_name")
+   TweenLite.to(my_name, 2, {rotation:90, transformOrigin:"left 50%"});
   </script>
 </html>

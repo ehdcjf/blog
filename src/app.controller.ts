@@ -9,7 +9,6 @@ export class AppController {
 	@Get()
 	@Render('index')
 	getHello() {
-		console.log('hello')
-		return {message:"Hello world!"};
+		return {message:"LHOIKTN"};
 	}
 }

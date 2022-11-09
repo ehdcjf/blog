@@ -1,0 +1,21 @@
+@font-face {
+        font-family: 'junegull';
+        src: url('../fonts/junegull.woff') format('woff');
+    }
+
+body{
+        background-color: black;
+        font-family:'junegull';
+}
+
+#container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+#my_name{
+        color: white;
+        font-size:128px;
+  
+}

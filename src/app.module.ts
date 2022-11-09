@@ -22,7 +22,8 @@ import { TagsModule } from './tags/tags.module';
 		HistoryModule,
 		TagsModule		
 	],
+	
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [AppService,],
 })
 export class AppModule {}

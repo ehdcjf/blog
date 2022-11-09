@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query,Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query,Res, HttpStatus, Render, Session } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,13 +10,42 @@ import { User } from '../schemas/user.schema';
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
 
+
 	@Post('/new')
+	
 	async createUser(@Res() response, @Body() createUserDto: CreateUserDto): Promise<User> {
 		const newUser = await this.usersService.create(createUserDto);
+
+		return response.redirect(`/users/${newUser.id}`)
 		return response.status(HttpStatus.CREATED).json({
 			newUser
 		})
 	}
+
+	@Post('/login')
+	@Render('login_result')
+	async loginUser(@Res() response, @Session() session:Record<string,any>, @Body() loginUserDto: UserLoginDto) {
+		
+		let message: string;
+
+		if(session.user){
+			message = "이미 로그인 ㅡ_ㅡ;"
+		}else{
+			const result =  await this.usersService.login(loginUserDto);	
+			if(result){
+				session.user = {
+					id:result.id,
+					_id: result._id,
+				}
+				message = "로그인 성공^_^"
+			}else{
+				message = "로그인 실패 ㅠ_ㅠ"
+			}
+		}
+		return {message}
+		
+	}
+
 
 	@Get()
 	async fetchAllUsers(@Res() response){
@@ -27,8 +56,10 @@ export class UsersController {
 	}
 
 	@Get('/:id')
+	@Render("userinfo")
 	async getUserInfo(@Res() response, @Param('id') userId:string) {
 		const user = await this.usersService.findOne(userId);
+		return {user};
 		return response.status(HttpStatus.OK).json({
 			user
 		})
@@ -52,7 +83,9 @@ export class UsersController {
 				message: deletedUserId
 			})
 		}
-    }
+    	}
+
+
 
 
 }

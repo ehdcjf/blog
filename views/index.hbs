@@ -17,18 +17,20 @@
   </div>
 
     <div>
-      {{message}}
+      <a href="/login">로그인</a>
+      <a href="/login">회원가입</a>
     </div>
   </body>
   <script>
-  const loading_message = document.querySelector("#loading_message")
-  const rotate_time = 2;
-    setTimeout(()=>{
-      TweenLite.to(loading_message, rotate_time, {rotation:90, transformOrigin:"left 50%"});
-      
+    const loading_message = document.querySelector("#loading_message");
+    const loading_container = document.querySelector("#loader");
+    const rotate_time = 2;
       setTimeout(()=>{
-        TweenLite.to(loading_message , 0.3,{opacity:0, display:"none"});
-      },3500)
+        TweenLite.to(loading_message, rotate_time, {rotation:90, transformOrigin:"left 50%"});
+        setTimeout(()=>{
+          TweenLite.to(loading_message , 0.3,{opacity:0, display:"none"});
+          TweenLite.to(loading_container , 0.3,{opacity:0, display:"none"});
+        },3500)
     },1500)
   </script>
 </html>

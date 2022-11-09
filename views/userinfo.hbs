@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        <div>
+                <span>ID: </span><span>{{user.id}}</span> <br>
+                <span>이름: </span><span>{{user.name}}</span> <br>
+                <span>가입일: </span><span style="display: none;" id="utc_time">{{user.createdAt}}</span>
+        </div>
+</body>
+<script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', (event) => {
+                const utc_time = document.querySelector('#utc_time');
+                const local_time_value = new Date(utc_time.innerHTML).toLocaleDateString();
+                utc_time.innerHTML = local_time_value;
+                utc_time.style.display = 'inline'
+        });
+
+</script>
+</html>
